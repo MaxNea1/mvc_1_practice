@@ -2,7 +2,7 @@ import pyodbc
 
 class Database:
 
-    def _init_(self):
+    def __init__(self):
         try:
             self.connection = pyodbc.connect(
                 'DRIVER={SQL Server};'
@@ -34,3 +34,11 @@ class Database:
         except Exception as e:
             print('Error al obtener datos: ', e)
             return []
+    def close(self):
+        try: 
+            if self.connection:
+                self.cursor.close()
+                self.connection.close()
+                print('Conexion cerrada')
+        except Exception as e:
+            print('Error al cerrar la conexion: ', e)
